@@ -1,0 +1,29 @@
+Legend
+
+Sikora_M(1).txt
+
+LRr = Luminosidade Rádio (5GHz) core
+L = Emissão atribuída ao Lóbulo
+Rc = Parâmetro Radio Quiet/Loud utilizando a luminosidade do core
+M = Massa do Buraco Negro
+corrM = Aplicando a correção do plano fundamental na massa
+RF = Parâmetro que define FRI ou FR II
+
+Sikora_Mcorr(1).txt
+
+LRr = Luminosidade Rádio (5GHz) core
+L = Emissão atribuída ao Lóbulo
+Rc = Parâmetro Radio Quiet/Loud utilizando a luminosidade do core
+Mcorr = Massa do Buraco Negro 
+corrM = Aplicando a correção do plano fundamental na massa
+RF = Parâmetro que define FRI ou FR II
+
+Kell_Table.txt
+
+delta = optical and radio offset (arcsec)
+redshift = redzhift
+VLA 6cm (uJy) = Flux at 6cm at uJy
+Iband = Magnitude at I Band
+Ratio = Ratio between the luminosities (Loud/Quiet criterion)
+
+
