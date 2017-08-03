@@ -1,21 +1,48 @@
 require(mclust)
-library(NbClust)
-bdata <- read.table("..//dataset/Sikora_Mcorr_(1).txt",header = T)
-write.csv(bdata,"Sikora_Mcorr_1.csv",row.names = F)
-bdata <-bdata[-74,]
+require(magrittr)
+require(dplyr)
+require(corrplot)
 
-bdata2 <- bdata[,c(3,4,5)]
-chart.Correlation(bdata2, histogram=TRUE, pch=19)
+# First data Sikora
+
+Sikora_data <-read.csv("..//dataset/Sikora_M.csv")
 
 
-nb <- NbClust(bdata2 , diss=NULL, distance = "euclidean", 
+# Correlation between parameters
+M <-cor(Sikora_data[,c(1:5)])
+corrplot(M, method="number")
+
+# Caso 1, includindo Log_L, LcorrM, LogRF
+
+dc1 <- Mclust(Sikora_data[,c("Log_L","LcorrM","LogRF")],modelName = "VVV")
+plot(dc1)
+
+# Second data
+
+Kell_data <-read.csv("..//dataset/Kell_table.csv")
+
+# Correlation between parameters
+Kell_data <- Kell_data %>% select(.,-2) %>%
+  mutate(.,VLA_6cm = log(VLA_6cm))
+
+M2 <-cor(Kell_data[,-2])
+corrplot(M2, method="number")
+
+# Caso 1, includindo Log_L, LcorrM, LogRF
+
+dc2 <- Mclust(Kell_data[,2:3],modelName = "VVV")
+plot(dc2)
+
+outlier <- boxplot.stats(Kell_data$I_Band)$out
+
+nb <- NbClust(Sikora_data_cut , diss=NULL, distance = "euclidean", 
               min.nc=2, max.nc=5, method = "average", 
               index = "all", alphaBeale = 0.1)
 
 
-clusters <- hclust(dist(bdata2), method = 'average')
+clusters <- hclust(dist(Sikora_data_cut), method = 'average')
 clusterCut <- cutree(clusters, 2)
-plot(bdata2,col=clusterCut)
+plot(Sikora_data_cut,col=clusterCut)
 
 plot(bdata2[,1:2],col=clusterCut)
 

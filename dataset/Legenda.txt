@@ -21,7 +21,7 @@ RF = Parâmetro que define FRI ou FR II
 Kell_Table.txt
 
 delta = optical and radio offset (arcsec)
-redshift = redzhift
+redshift = redshift
 VLA 6cm (uJy) = Flux at 6cm at uJy
 Iband = Magnitude at I Band
 Ratio = Ratio between the luminosities (Loud/Quiet criterion)
