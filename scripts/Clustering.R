@@ -2,11 +2,14 @@ require(mclust)
 require(magrittr)
 require(dplyr)
 require(corrplot)
+require(ggplot2)
 
 # First data Sikora
 
-Sikora_data <-read.csv("..//dataset/Sikora_M.csv")
+Sikora_data <-read.csv("..//dataset/Sikora_M.csv",header = T)
 
+ggplot(Sikora_data,aes(x=LogLRc,y=LogRc,color=Type))+
+  geom_point()
 
 # Correlation between parameters
 M <-cor(Sikora_data[,c(1:5)])
@@ -14,8 +17,8 @@ corrplot(M, method="number")
 
 # Caso 1, includindo Log_L, LcorrM, LogRF
 
-dc1 <- Mclust(Sikora_data[,c("Log_L","LcorrM","LogRF")],modelName = "VVV")
-plot(dc1)
+dc1 <- Mclust(Sikora_data[,c("LogLRc","LogRc","LogRF","logMBH")],modelName = "VVV")
+plot(dc1,what="classification")
 
 # Second data
 
