@@ -1,4 +1,4 @@
-LogLRc	Log_L	logLBr	logMBH	LogRc	LogRF	Type
+Core	Lobe	B_Band	Mass	R	RF	Type
 39.4	0.0	44.2	8.6	0.35	39.2000	BLRG
 39	0.0	42.2	7.5	1.94	39.0000	BLRG
 40.1	0.0	44.2	8.7	0.99	39.6000	BLRG
