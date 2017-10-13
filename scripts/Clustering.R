@@ -3,7 +3,7 @@ require(magrittr)
 require(dplyr)
 require(corrplot)
 require(ggplot2)
-
+library(flipMultivariates)
 # First data Sikora
 
 Sikora_data <-read.csv("..//dataset/Sikora_M.csv",header = T)
@@ -15,10 +15,34 @@ ggplot(Sikora_data,aes(x=LogLRc,y=LogRc,color=Type))+
 M <-cor(Sikora_data[,c(1:5)])
 corrplot(M, method="number")
 
+
+
+
+           
+           
 # Caso 1, includindo Log_L, LcorrM, LogRF
 
 dc1 <- Mclust(Sikora_data[,c("LogLRc","LogRc","LogRF","logMBH")],modelName = "VVV")
+
 plot(dc1,what="classification")
+
+
+Sikora_class <- data.frame(Sikora_data,class = dc1$classification)
+lda <- LDA(class ~ ., data = Sikora_class[,c(1,3,4,5,8)])
+ld<-DiscriminantVariables(lda)
+gld <- data.frame(ld,class = factor(dc1$classification))
+
+
+ggplot(gld,aes(x=LD1,group=class,fill=class))+
+  geom_density() + scale_fill_tableau() +
+  theme_bw()
+
+
+ggplot(gld,aes(x=LD1))+
+  geom_density() + scale_fill_tableau() +
+  theme_bw()
+
+
 
 # Second data
 
