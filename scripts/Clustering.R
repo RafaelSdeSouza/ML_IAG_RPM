@@ -22,7 +22,13 @@ corrplot(M, method="number")
            
 # Caso 1, includindo Log_L, LcorrM, LogRF
 
+icl <- c()
+for(i in 2:5){
 dc1 <- Mclust(Sikora_data[,c("LogLRc","LogRc","LogRF","logMBH")],modelName = "VVV")
+icl <- append(icl(dc1),icl)
+}
+dc1 <-mclustICL(Sikora_data[,c("LogLRc","LogRc","LogRF","logMBH")],modelName = "VVV")
+
 
 plot(dc1,what="classification")
 
