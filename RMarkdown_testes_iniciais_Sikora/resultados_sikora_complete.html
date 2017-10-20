@@ -120,12 +120,15 @@ $(document).ready(function () {
 </div>
 
 
-<style>
-body {
-text-align: justify}
-</style>
+<!-- <style> -->
+<!-- body { -->
+<!-- text-align: justify} -->
+<!-- </style> -->
+<!-- Esse código de cima para alinha texto não funciona no github -->
+<p align="center">
 <p>Pessoal, procurarei relatar de forma mais detalhada as técnicas que empreguei e as tentativas de verificar a possível separação nos dados, segundo a hipótese apresentada pelo Pedro.</p>
-<p>De modo geral, foi possível verificar uma separação dos dados no sentido da hipótese proposta em <strong>apenas</strong> uma única ocasião ao se empregar <em>Gaussian Mixture Models</em>. A separação somente se verifica, testando exclusivamente <span class="math inline">\(k = 2\)</span> clusters e com chute inicial específico. Embora não fosse o objetivo inicial, cheguei a tentar outra técnica de clustering, a <em>DBSCAN</em>. Os resultados, como vocês poderão ver, foram na mesma linha daqueles ao se empregar <em>GMM</em>. Procurei empregar o algoritmo do pacote mclust e também o algoritmo da scikit learn do Python e os resultados foram na mesma direção. De modo geral, foi possível observar que os algoritmos de agrupamento convergiam (grosso modo) para os tipos já estabelecidos dos AGN’s: BLRG, FRI PGQs, RLQ e SG-LINERS. A figura abaixo foi confeccionada apenas atribuindo cores aos tipos dos AGN’s e servirá de base para vocês compararem com os resultados dos algoritmos de agrupamento.</p>
+De modo geral, foi possível verificar uma separação dos dados no sentido da hipótese proposta em <strong>apenas</strong> uma única ocasião ao se empregar <em>Gaussian Mixture Models</em>. A separação somente se verifica, testando exclusivamente <span class="math inline">\(k = 2\)</span> clusters e com chute inicial específico. Embora não fosse o objetivo inicial, cheguei a tentar outra técnica de clustering, a <em>DBSCAN</em>. Os resultados, como vocês poderão ver, foram na mesma linha daqueles ao se empregar <em>GMM</em>. Procurei empregar o algoritmo do pacote mclust e também o algoritmo da scikit learn do Python e os resultados foram na mesma direção. De modo geral, foi possível observar que os algoritmos de agrupamento convergiam (grosso modo) para os tipos já estabelecidos dos AGN’s: BLRG, FRI PGQs, RLQ e SG-LINERS. A figura abaixo foi confeccionada apenas atribuindo cores aos tipos dos AGN’s e servirá de base para vocês compararem com os resultados dos algoritmos de agrupamento.
+</p>
 <pre class="r"><code>library(ggplot2)
 # leitura:
 load(&quot;~/WKSPCE_sikora.RData&quot;)
