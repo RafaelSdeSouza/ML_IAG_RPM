@@ -1,4 +1,6 @@
 # Testes com os dados 'Sikora_Complete.txt'
+Allan Vieira  
+2017-10-20  
 
 <!-- <style> -->
 <!-- body { -->
@@ -7,12 +9,9 @@
 
 <!-- Esse código de cima para alinha texto não funciona no github -->
 
-<p align="center">
 Pessoal, procurarei relatar de forma mais detalhada as técnicas que empreguei e as tentativas de verificar a possível separação nos dados, segundo a hipótese apresentada pelo Pedro.
 
-De modo geral, foi possível verificar uma separação dos dados no sentido da hipótese proposta em **apenas** uma única ocasião ao se empregar *Gaussian Mixture Models*. A separação somente se verifica, testando exclusivamente $k = 2$ clusters e com chute inicial específico. Embora não fosse o objetivo inicial, cheguei a tentar outra técnica de clustering, a *DBSCAN*. Os resultados, como vocês poderão ver, foram na mesma linha daqueles ao se empregar *GMM*. Procurei empregar o algoritmo do pacote mclust e também o algoritmo da scikit learn do Python e os resultados foram na mesma direção. De modo geral, foi possível observar que os algoritmos de agrupamento convergiam (grosso modo) para os tipos já estabelecidos dos AGN's: BLRG, FRI PGQs, RLQ e SG-LINERS. A figura abaixo foi confeccionada apenas atribuindo cores aos tipos dos AGN's e servirá de base para vocês compararem com os resultados dos algoritmos de agrupamento. </p> 
-
-
+De modo geral, foi possível verificar uma separação dos dados no sentido da hipótese proposta em **apenas** uma única ocasião ao se empregar *Gaussian Mixture Models*. A separação somente se verifica, testando exclusivamente $k = 2$ clusters e com chute inicial específico. Embora não fosse o objetivo inicial, cheguei a tentar outra técnica de clustering, a *DBSCAN*. Os resultados, como vocês poderão ver, foram na mesma linha daqueles ao se empregar *GMM*. Procurei empregar o algoritmo do pacote mclust e também o algoritmo da scikit learn do Python e os resultados foram na mesma direção. De modo geral, foi possível observar que os algoritmos de agrupamento convergiam (grosso modo) para os tipos já estabelecidos dos AGN's: BLRG, FRI PGQs, RLQ e SG-LINERS. A figura abaixo foi confeccionada apenas atribuindo cores aos tipos dos AGN's e servirá de base para vocês compararem com os resultados dos algoritmos de agrupamento.
 
 
 
