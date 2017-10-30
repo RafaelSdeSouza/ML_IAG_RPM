@@ -6,7 +6,24 @@ require(ggplot2)
 library(flipMultivariates)
 # First data Sikora
 
-Sikora_data <-read.csv("..//dataset/Sikora_M.csv",header = T)
+cat1<-read.table("..//dataset/data_Rafael/Parameters_1_CBMRT.txt",header = T)
+cat2<-read.table("..//dataset/data_Rafael/Parameters_2_RBMRT.txt",header = T)
+cat3<-read.table("..//dataset/data_Rafael/Parameters_3_OZVBR.txt",header = T)
+#cat4<-read.table("..//dataset/data_Rafael/Parameters_4_RBCFPZ.txt",header = T)
+
+
+cat3 <- filter(cat3,Offset!=0) %>% mutate(.,Offset=log(Offset)) %>% 
+  mutate(.,VLA=log(VLA)) %>% 
+  mutate(.,R_Index=log(R_Index))
+
+C1 <- Mclust(cat1[,1:4])
+
+C2 <- Mclust(cat2[,1:4])
+
+C3 <- Mclust(cat3[c(1,3,4,5)],G=2)
+
+
+
 
 ggplot(Sikora_data,aes(x=LogLRc,y=LogRc,color=Type))+
   geom_point()
