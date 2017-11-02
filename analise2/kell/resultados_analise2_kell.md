@@ -268,4 +268,4 @@ p <- ggplot(kell.df, aes(REDSHIFT, I_Band))+
 
 ![](resultados_analise2_kell_files/figure-html/c8-1.png)<!-- -->
 
-Portanto, verifica-se que nos dados "Kell_table.txt" também não há qualquer indicação da separação diagonal de clusters. Os resultados da PCA, dos demais gráficos e do GIF (tourr) mostram dois grupos bem separados com relação a variável REDSHIFT.
+Portanto, verifica-se que nos dados "Kell_table.txt" também não há qualquer indicação da separação diagonal de clusters. Os resultados da PCA, dos demais gráficos e do GIF (tourr) mostram dois grupos bem separados quando se confronta as variáveis $delta$ e $VLA_6cm$ com as demais.
