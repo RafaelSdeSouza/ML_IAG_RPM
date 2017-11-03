@@ -21,7 +21,7 @@ sikora.df$R1 <- ifelse(sikora.df$R1 == TRUE, "R>1", "R<1")
 library(ggplot2)
 library(gridExtra)
 
-comb = combn(4,2)
+comb = combn(ncol(sikora.df[,1:4]),2)
 p = list()
 #i = 1
 
@@ -94,7 +94,7 @@ library(factoextra)
 
 out1 <- Mclust(sikora.df[,1:4])
 str(out1)
-smy1<-summary(out1$BIC)
+summary(out1$BIC)
 fviz_mclust_bic(out1)
 
 # levando a classificação para os dados originais
@@ -141,14 +141,16 @@ fviz_mclust(out2, "classification", geom = "point")
 
 #PCA:
 pca<-princomp(sikora.df[,1:4])
-smypca<-summary(pca)
-
+summary(pca)
+pca$loadings
 #install.packages("ggfortify")
 #http://rpubs.com/sinhrks/plot_pca
 
 library(ggfortify)
 autoplot(pca)
 
+
+biplot(pca)
 
 #tourr
 library(tourr)

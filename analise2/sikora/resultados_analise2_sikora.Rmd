@@ -40,22 +40,19 @@ Primeiramente plotamos os pares de variáveis com a caracterização relativa a 
 sikora.df$R1 <- (sikora.df$R >= 1)
 sikora.df$R1 <- ifelse(sikora.df$R1 == TRUE, "R>1", "R<1")
 
-
 #plotando
 #install.packages("gridExtra")
-
 library(ggplot2)
 library(gridExtra)
 
-comb = combn(4,2)
-p = list()
-#i = 1
 
-#x = comb[,1]
+
 # para pegar e passar os nomes das variaveis corretamente para o ggplot
+comb = combn(ncol(sikora.df[,1:4]),2)
+p = list()
 nomes <- colnames(sikora.df[1:4])
-
 comb_nomes <- matrix(NA, nrow=2, ncol=ncol(comb))
+
 comb_nomes <- sapply(1:ncol(comb),function(j){
   sapply(1:2,function(i){
     comb_nomes[i,j]<-nomes[comb[i,j]]
@@ -73,7 +70,6 @@ p <- sapply(1:length(comb), function(i){
 #ok!
 
 grid.arrange(p[[1]],p[[2]],p[[3]],p[[4]],p[[5]],p[[6]], ncol=3)
-#p[[1]]; p[[2]]
 ```
 
 
@@ -91,8 +87,6 @@ out1 <- Mclust(sikora.df[,1:4])
 #str(out1)
 summary(out1$BIC)
 fviz_mclust_bic(out1)
-
-
 ```
 
 
@@ -113,9 +107,6 @@ p <- sapply(1:length(comb), function(i){
 
 #x11()
 grid.arrange(p[[1]],p[[2]],p[[3]],p[[4]],p[[5]],p[[6]], ncol=3)
-
-#fviz_mclust(out1, "classification", geom = "point")
-
 ```
 
 O próximo passo consistiu em rodar o GMM fixando em 2 grupos. As classificações são aprensentadas abaixo para cada par de variáveis. Ressalta-se não haver evidência dos clusters "diagonais" no caso Core vs B_Band assim como na primeira análise preliminar.
@@ -148,19 +139,21 @@ grid.arrange(p[[1]],p[[2]],p[[3]],p[[4]],p[[5]],p[[6]], ncol=3)
 
 ```
 
-Na Análise de Componentes Principais nota-se o grande peso da componente 1 na explicação da variabilidade dos dados.
+Na Análise de Componentes Principais nota-se o grande peso da componente 1 na explicação da variabilidade dos dados. Nesta componente, nota-se que a variável Lobe explica toda a variabilidade. Passando a componente dois, constata-se princiaplmente o "carregamento" de Core e B_Band, que serão analisadas de forma separada posteriormente (reetindo-se a primeira análise realizada para os dados sikora).
 
 
 ```{r c5, fig.width=5, fig.height=4, message=FALSE}
 #PCA:
 pca<-princomp(sikora.df[,1:4])
 summary(pca)
+pca$loadings
 
 #install.packages("ggfortify")
 #http://rpubs.com/sinhrks/plot_pca
 
 library(ggfortify)
 autoplot(pca)
+biplot(pca)
 ```
 
 
@@ -180,8 +173,7 @@ animate(sikora.df[,1:4],
 ![](sikora.gif)
 
 
-
-Na última etapa, buscou-se repetir o teste de agrupamento utilizando apenas duas variáveis. Tanto com o número de clusters irrestrito quanto para G=2 no MClust não se recuperou a forma diagonal dos clusters. Incluiu-se o shpae referente ao valor da variável $R$ nos gráficos.
+Na última etapa, buscou-se repetir o teste de agrupamento utilizando apenas duas variáveis: Core e B_Band. Tanto com o número de clusters irrestrito quanto para G=2 no MClust não se recuperou a forma diagonal dos clusters. Incluiu-se o shape referente ao valor da variável $R$ nos gráficos.
 
 Sem estabelecer G, o número de clusters ideal retornado foi 3.
 
@@ -221,4 +213,4 @@ p <- ggplot(sikora.df, aes(Core, B_Band))+
   theme(plot.title = element_text(hjust=0.5));p
 ```
 
-Portanto, verifica-se que não há qualquer indicação da separação diagonal dos clusters. Contudo, os resultados da PCA, dos demais gráficos e do GIF (tourr) mostram dois grupos bem separados com relação a variável Lobe.
+Portanto, verifica-se que não há qualquer indicação da separação diagonal dos clusters. Os resultados da PCA, dos demais gráficos e do GIF (tourr) mostram dois grupos bem separados com relação a variável Lobe, reponsável por quase toda a variabilidade dos dados.

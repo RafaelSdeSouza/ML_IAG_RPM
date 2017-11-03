@@ -37,22 +37,19 @@ Primeiramente plotamos os pares de variáveis com a caracterização relativa a 
 sikora.df$R1 <- (sikora.df$R >= 1)
 sikora.df$R1 <- ifelse(sikora.df$R1 == TRUE, "R>1", "R<1")
 
-
 #plotando
 #install.packages("gridExtra")
-
 library(ggplot2)
 library(gridExtra)
 
-comb = combn(4,2)
-p = list()
-#i = 1
 
-#x = comb[,1]
+
 # para pegar e passar os nomes das variaveis corretamente para o ggplot
+comb = combn(ncol(sikora.df[,1:4]),2)
+p = list()
 nomes <- colnames(sikora.df[1:4])
-
 comb_nomes <- matrix(NA, nrow=2, ncol=ncol(comb))
+
 comb_nomes <- sapply(1:ncol(comb),function(j){
   sapply(1:2,function(i){
     comb_nomes[i,j]<-nomes[comb[i,j]]
@@ -73,10 +70,6 @@ grid.arrange(p[[1]],p[[2]],p[[3]],p[[4]],p[[5]],p[[6]], ncol=3)
 ```
 
 ![](resultados_analise2_sikora_files/figure-html/c1-1.png)<!-- -->
-
-```r
-#p[[1]]; p[[2]]
-```
 
 
 Em seguida, rodamos o GMM do pacote MClust para as 4 variáveis (Core, Lobe, B_Band e Mass ) sem restrição quanto ao número de grupos. O modelo ideal seria o com $4$ grupos, conforme se verifica da tabela e do gráfico de BIC's.
@@ -131,10 +124,6 @@ grid.arrange(p[[1]],p[[2]],p[[3]],p[[4]],p[[5]],p[[6]], ncol=3)
 
 ![](resultados_analise2_sikora_files/figure-html/c3-1.png)<!-- -->
 
-```r
-#fviz_mclust(out1, "classification", geom = "point")
-```
-
 O próximo passo consistiu em rodar o GMM fixando em 2 grupos. As classificações são aprensentadas abaixo para cada par de variáveis. Ressalta-se não haver evidência dos clusters "diagonais" no caso Core vs B_Band assim como na primeira análise preliminar.
 
 
@@ -169,7 +158,7 @@ grid.arrange(p[[1]],p[[2]],p[[3]],p[[4]],p[[5]],p[[6]], ncol=3)
 #fviz_mclust(out2, "classification", geom = "point")
 ```
 
-Na Análise de Componentes Principais nota-se o grande peso da componente 1 na explicação da variabilidade dos dados.
+Na Análise de Componentes Principais nota-se o grande peso da componente 1 na explicação da variabilidade dos dados. Nesta componente, nota-se que a variável Lobe explica toda a variabilidade. Passando a componente dois, constata-se princiaplmente o "carregamento" de Core e B_Band, que serão analisadas de forma separada posteriormente (reetindo-se a primeira análise realizada para os dados sikora).
 
 
 
@@ -188,6 +177,25 @@ summary(pca)
 ```
 
 ```r
+pca$loadings
+```
+
+```
+## 
+## Loadings:
+##        Comp.1 Comp.2 Comp.3 Comp.4
+## Core           0.725  0.608 -0.323
+## Lobe   -1.000                     
+## B_Band         0.662 -0.744       
+## Mass           0.188  0.276  0.943
+## 
+##                Comp.1 Comp.2 Comp.3 Comp.4
+## SS loadings      1.00   1.00   1.00   1.00
+## Proportion Var   0.25   0.25   0.25   0.25
+## Cumulative Var   0.25   0.50   0.75   1.00
+```
+
+```r
 #install.packages("ggfortify")
 #http://rpubs.com/sinhrks/plot_pca
 
@@ -196,6 +204,12 @@ autoplot(pca)
 ```
 
 ![](resultados_analise2_sikora_files/figure-html/c5-1.png)<!-- -->
+
+```r
+biplot(pca)
+```
+
+![](resultados_analise2_sikora_files/figure-html/c5-2.png)<!-- -->
 
 
 Essa separação verificada na PCA pode ser melhor notada no GIF abaixo confeccionado com o pacote $tourr$:
@@ -214,8 +228,7 @@ animate(sikora.df[,1:4],
 ![](sikora.gif)
 
 
-
-Na última etapa, buscou-se repetir o teste de agrupamento utilizando apenas duas variáveis. Tanto com o número de clusters irrestrito quanto para G=2 no MClust não se recuperou a forma diagonal dos clusters. Incluiu-se o shpae referente ao valor da variável $R$ nos gráficos.
+Na última etapa, buscou-se repetir o teste de agrupamento utilizando apenas duas variáveis: Core e B_Band. Tanto com o número de clusters irrestrito quanto para G=2 no MClust não se recuperou a forma diagonal dos clusters. Incluiu-se o shape referente ao valor da variável $R$ nos gráficos.
 
 Sem estabelecer G, o número de clusters ideal retornado foi 3.
 
@@ -271,4 +284,4 @@ p <- ggplot(sikora.df, aes(Core, B_Band))+
 
 ![](resultados_analise2_sikora_files/figure-html/c8-1.png)<!-- -->
 
-Portanto, verifica-se que não há qualquer indicação da separação diagonal dos clusters. Contudo, os resultados da PCA, dos demais gráficos e do GIF (tourr) mostram dois grupos bem separados com relação a variável Lobe.
+Portanto, verifica-se que não há qualquer indicação da separação diagonal dos clusters. Os resultados da PCA, dos demais gráficos e do GIF (tourr) mostram dois grupos bem separados com relação a variável Lobe, reponsável por quase toda a variabilidade dos dados.
