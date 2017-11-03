@@ -154,11 +154,7 @@ grid.arrange(p[[1]],p[[2]],p[[3]],p[[4]],p[[5]],p[[6]], ncol=3)
 
 ![](resultados_analise2_sikora_files/figure-html/c4-1.png)<!-- -->
 
-```r
-#fviz_mclust(out2, "classification", geom = "point")
-```
-
-Na Análise de Componentes Principais nota-se o grande peso da componente 1 na explicação da variabilidade dos dados. Nesta componente, nota-se que a variável Lobe explica toda a variabilidade. Passando a componente dois, constata-se princiaplmente o "carregamento" de Core e B_Band, que serão analisadas de forma separada posteriormente (reetindo-se a primeira análise realizada para os dados sikora).
+Na Análise de Componentes Principais nota-se o grande peso da componente 1 na explicação da variabilidade dos dados. Nesta componente, a variável Lobe explica toda a variabilidade. Passando à componente dois, constata-se principalmente o "carregamento" de Core e B_Band, que serão analisadas de forma separada posteriormente (reetindo-se a primeira análise realizada para os dados sikora).
 
 
 

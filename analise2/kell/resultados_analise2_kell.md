@@ -107,6 +107,7 @@ fviz_mclust_bic(out1)
 
 ![](resultados_analise2_kell_files/figure-html/c2,-1.png)<!-- -->
 
+
 ```r
 # levando a classificação para os dados originais
 kell.df$cluster1 <- as.factor(out1$classification)
@@ -123,11 +124,7 @@ p <- sapply(1:length(comb), function(i){
 grid.arrange(p[[1]],p[[2]],p[[3]],p[[4]],p[[5]],p[[6]], ncol=3)
 ```
 
-![](resultados_analise2_kell_files/figure-html/c2,-2.png)<!-- -->
-
-```r
-#fviz_mclust(out1, "classification", geom = "point")
-```
+![](resultados_analise2_kell_files/figure-html/c2.1,-1.png)<!-- -->
 
 O próximo passo consistiu em rodar o GMM fixado em 2 grupos. As classificações são aprensentadas abaixo para cada par de variáveis.
 
@@ -157,10 +154,6 @@ grid.arrange(p[[1]],p[[2]],p[[3]],p[[4]],p[[5]],p[[6]], ncol=3)
 ```
 
 ![](resultados_analise2_kell_files/figure-html/c4-1.png)<!-- -->
-
-```r
-#fviz_mclust(out1, "classification", geom = "point")
-```
 
 Na Análise de Componentes Principais nota-se o peso considerável da primeira componente na explicação da variabilidade dos dados. Isto, aliado aos aos coeficientes das variaveis originais nas componentes principais, apontam que log_VLA_6cm e log_Ratio seriam as variáveis mais importantes para se explicar a variabilidade dos dados. Este resultado é corroborado pelo padrão (denso) do scatter plot dessas duas variáveis nos gráficos 2x2. Chama atenção um outlier na componente 2, provocado pela variável delta, como será verificado na imagem GIF posteriormente. Esse outlier refere-se ao objeto 18.
 

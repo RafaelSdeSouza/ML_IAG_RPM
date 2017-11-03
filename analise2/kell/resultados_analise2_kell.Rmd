@@ -83,7 +83,7 @@ grid.arrange(p[[1]],p[[2]],p[[3]],p[[4]],p[[5]],p[[6]], ncol=3)
 Em seguida, rodamos o GMM do pacote MClust para todas as 5 variáveis dos dados kell (delta, REDSHIFT, VLA_6cm, I_Band, Ratio) sem restrição quanto ao número de grupos. O modelo ideal seria o com $3$ grupos, conforme se verifica da tabela e do gráfico de BIC's.
 
 
-```{r c2,, fig.width=15, fig.height=10, echo=TRUE, warning=FALSE, message=FALSE}
+```{r c2,, fig.width=5, fig.height=4, echo=TRUE, warning=FALSE, message=FALSE}
 #rodando MClust
 
 ### G irrestrito
@@ -94,7 +94,9 @@ out1 <- Mclust(kell.df[,1:4])
 #str(out1)
 summary(out1$BIC)
 fviz_mclust_bic(out1)
+```
 
+```{r c2.1,, fig.width=15, fig.height=10, echo=TRUE, warning=FALSE, message=FALSE}
 # levando a classificação para os dados originais
 kell.df$cluster1 <- as.factor(out1$classification)
 
@@ -108,8 +110,6 @@ p <- sapply(1:length(comb), function(i){
 })
 
 grid.arrange(p[[1]],p[[2]],p[[3]],p[[4]],p[[5]],p[[6]], ncol=3)
-
-#fviz_mclust(out1, "classification", geom = "point")
 
 ```
 
@@ -137,8 +137,6 @@ p <- sapply(1:length(comb), function(i){
 })
 
 grid.arrange(p[[1]],p[[2]],p[[3]],p[[4]],p[[5]],p[[6]], ncol=3)
-
-#fviz_mclust(out1, "classification", geom = "point")
 
 ```
 

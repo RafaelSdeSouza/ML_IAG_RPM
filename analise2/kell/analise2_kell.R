@@ -5,10 +5,30 @@ rm(list=ls())
 #1) analise fator R>1:
 
 #leitura
-load("~/WKSPCE_kell.RData")
+load("~/WKSPCE_analise2_kell.RData")
 kell.loc<-file.choose()
 kell.df <- read.table(kell.loc, header=TRUE)
 str(kell.df)
+
+
+head(kell.df)
+
+# eliminando a coluna de REDSHIFT
+kell.df <- kell.df[,-2]
+
+
+# tirando as obs com zeros:
+#kell.df[kell.df==0,]
+
+kell.df <- kell.df[-which(kell.df$delta==0),]
+
+
+# transformando as variaveis Ratio e VLA_6cm para log
+library(tidyr)
+kell.df[,c("VLA_6cm", "Ratio")] <- log(kell.df[,c("VLA_6cm", "Ratio")])
+
+colnames(kell.df)[c(2,4)] <- c("Log_VLA_6cm", "Log_Ratio")
+
 
 # # criando fator
 # kell.df$R1 <- (kell.df$R >= 1)
@@ -21,7 +41,7 @@ str(kell.df)
 library(ggplot2)
 library(gridExtra)
 
-comb = combn(5,2)
+comb = combn(ncol(kell.df[,1:4]),2)
 p = list()
 #i = 1
 
@@ -54,10 +74,9 @@ p <- sapply(1:length(comb), function(i){
 #       theme(plot.title = element_text(hjust=0.5))
 #   })  
 # })
-
-x11()
-grid.arrange(p[[1]],p[[2]],p[[3]],p[[4]],p[[5]],p[[6]],p[[7]],p[[8]],
-             p[[9]],p[[10]], ncol=5)
+p
+#x11()
+grid.arrange(p[[1]],p[[2]],p[[3]],p[[4]],p[[5]],p[[6]], ncol=3)
 #p[[1]]; p[[2]]
 
 
@@ -123,7 +142,7 @@ grid.arrange(p[[1]],p[[2]],p[[3]],p[[4]],p[[5]],p[[6]],p[[7]],p[[8]],
 library(mclust)
 library(factoextra)
 
-out1 <- Mclust(kell.df)
+out1 <- Mclust(kell.df[,1:4])
 str(out1)
 summary(out1$BIC)
 fviz_mclust_bic(out1)
@@ -144,17 +163,15 @@ p <- sapply(1:length(comb), function(i){
 
 
 #x11()
-x11()
-grid.arrange(p[[1]],p[[2]],p[[3]],p[[4]],p[[5]],p[[6]],p[[7]],p[[8]],
-             p[[9]],p[[10]], ncol=5)
+grid.arrange(p[[1]],p[[2]],p[[3]],p[[4]],p[[5]],p[[6]], ncol=3)
 
 fviz_mclust(out1, "classification", geom = "point")
 
 
 ### G=2
 
-out2 <- Mclust(kell.df[,1:5], G=2)
-str(out2)
+out2 <- Mclust(kell.df[,1:4], G=2)
+#str(out2)
 summary(out2$BIC)
 #fviz_mclust_bic(out2)
 
@@ -171,16 +188,16 @@ p <- sapply(1:length(comb), function(i){
 })
 
 #x11()
-x11()
-grid.arrange(p[[1]],p[[2]],p[[3]],p[[4]],p[[5]],p[[6]],p[[7]],p[[8]],
-             p[[9]],p[[10]], ncol=5)
+grid.arrange(p[[1]],p[[2]],p[[3]],p[[4]],p[[5]],p[[6]], ncol=3)
 
 fviz_mclust(out1, "classification", geom = "point")
 
 
 #PCA:
-pca<-princomp(kell.df[,1:5])
+pca<-princomp(kell.df[,1:4])
 summary(pca)
+pca$loadings
+# log_VLA e Ratio são os mais importantes para explicar a variabilidade dos dados
 
 #install.packages("ggfortify")
 #http://rpubs.com/sinhrks/plot_pca
@@ -188,27 +205,31 @@ summary(pca)
 library(ggfortify)
 autoplot(pca)
 
+# verificando quem eh o outlier:
+biplot(pca)
+# o objeto 18 aprece como um outlier
+
 
 #tourr
 library(tourr)
 
-animate(kell.df[,1:5],
+animate(kell.df[,1:4],
         grand_tour(d = 2), display = display_xy())
-animate(kell.df[,1:5],
+animate(kell.df[,1:4],
         grand_tour(d = 3), display = display_depth())
-animate(kell.df[,1:5],
+animate(kell.df[,1:4],
         grand_tour(d = 4), display = display_pcp())
 
 biplot(pca)
-
+# o objeto 18 aprece como um outlier
 
 # animação GIF
 #install.packages("animation")
 library(animation)
 help("animation")
 
-ani.options(interval=0.05)
-saveGIF(animate(kell.df[,1:5],
+ani.options(interval=0.08)
+saveGIF(animate(kell.df[,1:4],
                 grand_tour(d = 2), display = display_xy()),
         movie.name = "kell.gif")
 
@@ -221,32 +242,31 @@ saveGIF(animate(kell.df[,1:5],
 #... com a diagonal:
 
 ### G irrestrito (I_BAND vs REDSHIFT)
-
-out3 <- Mclust(kell.df[,c("REDSHIFT", "I_Band")])
-str(out3)
+out3 <- Mclust(kell.df[,c("Log_VLA_6cm", "Log_Ratio")])
+#str(out3)
 summary(out3$BIC)
-#fviz_mclust_bic(out2)
+fviz_mclust_bic(out3)
 
 # levando a classificação para os dados originais
 kell.df$cluster3 <- as.factor(out3$classification)
 
-p <- ggplot(kell.df, aes(REDSHIFT, I_Band))+
-      geom_point(aes(colour = cluster3),size = 1.5)+
-      ggtitle("Teste Clustering Específico para 2 var")+
-      theme(plot.title = element_text(hjust=0.5));p
+p <- ggplot(kell.df, aes(Log_VLA_6cm, Log_Ratio))+
+  geom_point(aes(colour = cluster3),size = 1.5)+
+  ggtitle("Teste Clustering Específico para 2 var")+
+  theme(plot.title = element_text(hjust=0.5));p
 
-### G=2 (I_BAND vs REDSHIFT)
 
-out4 <- Mclust(kell.df[,c("REDSHIFT", "I_Band")], G=2)
-str(out4)
+### G=2 (Log_VLA_6cm vs Log_Ratio)
+
+out4 <- Mclust(kell.df[,c("Log_VLA_6cm", "Log_Ratio")], G=2)
+#str(out4)
 #summary(out4$BIC)
 #fviz_mclust_bic(out2)
 
 # levando a classificação para os dados originais
 kell.df$cluster4 <- as.factor(out4$classification)
 
-p <- ggplot(kell.df, aes(REDSHIFT, I_Band))+
+p <- ggplot(kell.df, aes(Log_VLA_6cm, Log_Ratio))+
   geom_point(aes(colour = cluster4),size = 1.5)+
   ggtitle("Teste Clustering Específico para 2 var")+
   theme(plot.title = element_text(hjust=0.5));p
-
