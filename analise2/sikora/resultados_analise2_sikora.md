@@ -12,9 +12,9 @@ Neste arquivo constam os resultados da segunda análise com os dados de "Sikora_
 * utilizou-se apenas o algoritmo de agrupamento (EM - GMM) do pacote MClust;
 * nos plots, fora empregada a caracterização de $R \ge 1$ ou $<1$;
 * os algoritmos foram rodados considerando todas as variaveis inicialmente;
-* confeccionou-se um GIF parar verificar como os dados estariam separados nas respectivas dimensões;
 * realizou-se análise de componentes principais;
-* por fim, repetiu-se o algoritmo de agrupamento apenas para as variáveis Core e B_Band, considerando a característica de $R \ge 1$ ou $<1$.
+* confeccionou-se um GIF parar verificar como os dados estariam separados nas respectivas dimensões;
+* repetiu-se o algoritmo de agrupamento apenas para as variáveis Core e B_Band, considerando a característica de $R \ge 1$ ou $<1$.
 
 
 
@@ -154,7 +154,7 @@ grid.arrange(p[[1]],p[[2]],p[[3]],p[[4]],p[[5]],p[[6]], ncol=3)
 
 ![](resultados_analise2_sikora_files/figure-html/c4-1.png)<!-- -->
 
-Na Análise de Componentes Principais nota-se o grande peso da componente 1 na explicação da variabilidade dos dados. Nesta componente, a variável Lobe explica toda a variabilidade. Passando à componente dois, constata-se principalmente o "carregamento" de Core e B_Band, que serão analisadas de forma separada posteriormente (reetindo-se a primeira análise realizada para os dados sikora).
+Na Análise de Componentes Principais nota-se o grande peso da componente 1 na explicação da variabilidade dos dados. Nesta componente, a variável Lobe explica toda a variabilidade. Passando à componente dois, constata-se principalmente o "carregamento" de Core e B_Band, que serão analisadas de forma separada posteriormente (repetindo-se a primeira análise realizada para os dados sikora).
 
 
 
@@ -224,7 +224,7 @@ animate(sikora.df[,1:4],
 ![](sikora.gif)
 
 
-Na última etapa, buscou-se repetir o teste de agrupamento utilizando apenas duas variáveis: Core e B_Band. Tanto com o número de clusters irrestrito quanto para G=2 no MClust não se recuperou a forma diagonal dos clusters. Incluiu-se o shape referente ao valor da variável $R$ nos gráficos.
+Na última etapa, buscou-se repetir o teste de agrupamento, mas utilizando apenas duas variáveis: Core e B_Band. Tanto com o número de clusters irrestrito quanto para G=2 no MClust, não se recuperou a forma diagonal dos clusters. Incluiu-se o shape referente ao valor da variável $R$ nos gráficos.
 
 Sem estabelecer G, o número de clusters ideal retornado foi 3.
 
@@ -259,7 +259,7 @@ p <- ggplot(sikora.df, aes(Core, B_Band))+
 ![](resultados_analise2_sikora_files/figure-html/c7-1.png)<!-- -->
 
 
-Estabelecendo G=2, obtivemos o seguinte resultado.
+Estabelecendo G=2, obtivemos o mesmo resultado geral da primeira análise de "sikora_complete.txt".
 
 ```r
 ### G=2 (Core vs B_Band)
