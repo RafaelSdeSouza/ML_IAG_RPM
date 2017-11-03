@@ -23,7 +23,7 @@ Neste arquivo constam os resultados da análise com os dados de "Kell.txt". A se
 load("~/WKSPCE_analise2_kell.RData")
 ```
 
-Primeiramente plotamos os pares de variáveis. Destaca-se o segundo gráfico Core vs B_Band, com o aspecto de duas diagonais bem definidas segundo o valor do $R$.
+Primeiramente, eliminou-se a variável REDSHIFT, bem como 3 objetos com valores zero na variável delta. Realizou-se, ainda, a transformação para escala logarítimica das variáveis VLA_6cm e Ratio. Em seguida, são plotados os pares de variáveis. Destaca-se a dispersão diagonal dos dados no caso Log_VLA_6cm vs Log_Ratio.
 
 
 ```r
@@ -78,7 +78,7 @@ grid.arrange(p[[1]],p[[2]],p[[3]],p[[4]],p[[5]],p[[6]], ncol=3)
 ![](resultados_analise2_kell_files/figure-html/c1-1.png)<!-- -->
 
 
-Em seguida, rodamos o GMM do pacote MClust para todas as 5 variáveis dos dados kell (delta, REDSHIFT, VLA_6cm, I_Band, Ratio) sem restrição quanto ao número de grupos. O modelo ideal seria o com $3$ grupos, conforme se verifica da tabela e do gráfico de BIC's.
+Em seguida, rodamos o GMM do pacote MClust para as 4 variáveis dos dados kell (delta, Log_VLA_6cm, I_Band, Log_Ratio) sem restrição quanto ao número de grupos. O modelo ideal seria o com $4$ grupos, conforme se verifica da tabela e do gráfico de BIC's.
 
 
 
@@ -155,7 +155,7 @@ grid.arrange(p[[1]],p[[2]],p[[3]],p[[4]],p[[5]],p[[6]], ncol=3)
 
 ![](resultados_analise2_kell_files/figure-html/c4-1.png)<!-- -->
 
-Na Análise de Componentes Principais nota-se o peso considerável da primeira componente na explicação da variabilidade dos dados. Isto, aliado aos aos coeficientes das variaveis originais nas componentes principais, apontam que log_VLA_6cm e log_Ratio seriam as variáveis mais importantes para se explicar a variabilidade dos dados. Este resultado é corroborado pelo padrão (denso) do scatter plot dessas duas variáveis nos gráficos 2x2. Chama atenção um outlier na componente 2, provocado pela variável delta, como será verificado na imagem GIF posteriormente. Esse outlier refere-se ao objeto 18.
+Na Análise de Componentes Principais nota-se o peso considerável da primeira componente na explicação da variabilidade dos dados. Isto, aliado aos aos coeficientes das variaveis originais nas componentes principais, apontam que Log_VLA_6cm e Log_Ratio seriam as variáveis mais importantes para se explicar a variabilidade dos dados. Este resultado é corroborado pelo padrão (denso) do scatter plot dessas duas variáveis nos gráficos 2x2. Chama atenção um outlier na componente 2, provocado pela variável delta, como será verificado na imagem GIF posteriormente. Esse outlier refere-se ao objeto 18.
 
 
 
@@ -193,7 +193,7 @@ pca$loadings
 ```
 
 ```r
-# log_VLA e Ratio são os mais importantes para explicar a variabilidade dos dados
+# Log_VLA_6cm e Log_Ratio são os mais importantes para explicar a variabilidade dos dados
 
 #install.packages("ggfortify")
 #http://rpubs.com/sinhrks/plot_pca
@@ -275,7 +275,7 @@ p <- ggplot(kell.df, aes(Log_VLA_6cm, Log_Ratio))+
 ![](resultados_analise2_kell_files/figure-html/c7-2.png)<!-- -->
 
 
-Estabelecendo G=2, obtve-se praticamente o mesmo resultado.
+Estabelecendo G=2, obteve-se o mesmo resultado.
 
 ```r
 ### G=2 (Log_VLA_6cm vs Log_Ratio)
