@@ -158,7 +158,7 @@ autoplot(pca)
 
 # verificando quem eh o outlier:
 biplot(pca)
-# o objeto 18 aprece como um outlier
+# o objeto 18 aparece como um outlier
 ```
 
 
@@ -188,7 +188,7 @@ Sem estabelecer G, o número de clusters ideal via BIC retornado foi 2.
 Em uma analogia aos resultados obtidos com os dados Sikora (perdoem-me caso não faça sentido essa comparação em termos físicos), a única separação obtida foi aquela diametralmente oposta: objetos agrupados no canto inferior esquerdo vs objetos no canto superior direito. Cabe ressaltar, no entanto, a diferença na densidade de pontos entre os grupos.
 
 ```{r c7, echo=TRUE, fig.width=5, fig.height=4, message=FALSE}
-### G irrestrito (I_BAND vs REDSHIFT)
+### G irrestrito (Log_VLA_6cm vs Log_Ratio)
 out3 <- Mclust(kell.df[,c("Log_VLA_6cm", "Log_Ratio")])
 #str(out3)
 summary(out3$BIC)

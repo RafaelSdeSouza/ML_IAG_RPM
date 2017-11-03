@@ -212,7 +212,7 @@ biplot(pca)
 ![](resultados_analise2_kell_files/figure-html/c5-2.png)<!-- -->
 
 ```r
-# o objeto 18 aprece como um outlier
+# o objeto 18 aparece como um outlier
 ```
 
 
@@ -243,7 +243,7 @@ Em uma analogia aos resultados obtidos com os dados Sikora (perdoem-me caso não
 
 
 ```r
-### G irrestrito (I_BAND vs REDSHIFT)
+### G irrestrito (Log_VLA_6cm vs Log_Ratio)
 out3 <- Mclust(kell.df[,c("Log_VLA_6cm", "Log_Ratio")])
 #str(out3)
 summary(out3$BIC)
