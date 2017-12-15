@@ -1,8 +1,8 @@
 ---
 title: "3ª Análise - utiliziando todos os data sets"
 output: 
-  html_document:
-    keep_md: true
+  html_document: 
+    keep_md: yes
 ---
 
 <!-- <style> -->
@@ -15,7 +15,7 @@ output:
 Neste arquivo constam os resultados da terceira análise dos dados sobre a dicotomia, desta vez realizando para os 4 data sets disponíveis:
 
 * utilizou-se apenas o algoritmo de agrupamento (EM - GMM) do pacote MClust;
-* nos plots (2 a 2), fora empregada a caracterização de $R \ge 1$ ou $<1$, quando aplicável;
+* nos plots (2 a 2), fora empregada a caracterização de R > 1 ou R < 1, quando aplicável;
 * os algoritmos foram rodados considerando todas as variaveis em cada data-set;
 * testou-se o GMM com grupos G=2, G=3 e G indefinido, a fim de verificar (via BIC) o quão diferente era o modelo com G=2 em relação ao(s) outro(s);
 
