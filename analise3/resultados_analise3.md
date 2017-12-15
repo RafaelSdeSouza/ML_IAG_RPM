@@ -1,6 +1,5 @@
 ---
 title: "3ª Análise - utiliziando todos os data sets"
-date: "15 de dezembro de 2017"
 output: 
   html_document:
     keep_md: true
