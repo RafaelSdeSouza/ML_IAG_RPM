@@ -1,9 +1,4 @@
----
-title: "3ª Análise - utiliziando todos os data sets"
-output: 
-  html_document: 
-    keep_md: yes
----
+# 3ª Análise - utiliziando todos os data sets
 
 <!-- <style> -->
 <!-- body { -->
