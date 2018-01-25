@@ -1,9 +1,5 @@
----
-title: "Análise 5 - Figuras"
-output: 
-  html_document:
-    keep_md: true
----
+# Análise 5 - Figuras
+
 
 ## Parte 1 - Sem remoção dos outliers
 
