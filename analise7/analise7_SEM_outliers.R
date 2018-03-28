@@ -1,8 +1,7 @@
 ################ ANALISE 7 (26-MAR-2018)
-############## script MLG USP 23-01-2018 - todos os data sets
 #rm(list=ls())
 
-setwd('/home/allan/Documents/astro/MLG_IAG_USP/analise7')
+# setwd('/home/allan/Documents/astro/MLG_IAG_USP/analise7')
 
 # -------------------------- SEM ELIMINAR OUTLIERS ---------------------
 
