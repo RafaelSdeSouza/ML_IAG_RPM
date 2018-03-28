@@ -35,6 +35,38 @@ data4.df <- data4.df %>% .[,-4]
 data4.df[,4] <- log(data4.df[,4])
 
 
+## eliminando os outliers
+# vamos eliminar todos os pontos em todas as colunas que ultrapassem o percentil 99% e fique aquem do peercentil 1%
+# dataset1
+data1.df <- data1.df[,1:4]
+for(j in 1:ncol(data1.df)){
+  quant<-quantile(data1.df[,j],c(0.05,0.95))
+  data1.df <- data1.df[data1.df[,j] >= quant[1] & data1.df[,j] <= quant[2],]
+}
+
+# dataset2
+data2.df <- data2.df[,1:4]
+for(j in 1:ncol(data2.df)){
+  quant<-quantile(data2.df[,j],c(0.05,0.95))
+  data2.df <- data2.df[data2.df[,j] >= quant[1] & data2.df[,j] <= quant[2],]
+}
+
+# dataset3
+data3.df <- data3.df[,1:4]
+for(j in 1:ncol(data3.df)){
+  quant<-quantile(data3.df[,j],c(0.05,0.95))
+  data3.df <- data3.df[data3.df[,j] >= quant[1] & data3.df[,j] <= quant[2],]
+}
+
+# dataset4
+#j=2
+data4.df <- data4.df[,1:4]
+for(j in 1:ncol(data4.df)){
+  quant<-quantile(data4.df[,j],c(0.05,0.95))
+  data4.df <- data4.df[data4.df[,j] >= quant[1] & data4.df[,j] <= quant[2],]
+}
+
+
 ## criando fator R>1, R<1
 # dataset1
 data1.df$R1 <- (data1.df$Rc_Index >= 1)
@@ -165,7 +197,7 @@ grid.arrange(p1[[1]],p1[[2]],p1[[3]],p1[[4]],p1[[5]],p1[[6]],
              p4[[1]],p4[[2]],p4[[3]],p4[[4]],p4[[5]],p4[[6]], ncol=6,
              top = "Cluster G=2 vs R>1/R<1")
 
-savePlot("fig1_GMM_2a2_com_outliers.PNG", type = "png",
+savePlot("fig1_GMM_2a2_SEM_outliers.PNG", type = "png",
          device = dev.cur())
 
 ### 2) gráficos do item 1 com ellipses:
@@ -236,7 +268,7 @@ grid.arrange(pe1[[1]],pe1[[2]],pe1[[3]],pe1[[4]],pe1[[5]],pe1[[6]],
              pe4[[1]],pe4[[2]],pe4[[3]],pe4[[4]],pe4[[5]],pe4[[6]], ncol=6,
              top = "Cluster G=2 vs R>1/R<1")
 
-savePlot("fig2_GMM_2a2_elipses_sem_outliers.PNG", type = "png",
+savePlot("fig2_GMM_2a2_elipses_SEM_outliers.PNG", type = "png",
          device = dev.cur())
 
 
@@ -440,7 +472,7 @@ p1_icl_new <-
   theme(panel.grid = element_blank())+
   ggtitle("Dataset 1")+
   theme(plot.title = element_text(hjust=0.5))+
-  annotate("text", x=c(1.8, 2.8, 3.8, 4.8), y=c(-1400, -800, rep(-1400,2)),
+  annotate("text", x=c(1.8, 2.8, 3.8, 4.8), y=c(-800, -400, rep(-800,2)),
            label=c(var_icl_df1))
 
 # dataset2
@@ -465,7 +497,7 @@ p2_icl_new <-
   theme(panel.grid = element_blank())+
   ggtitle("Dataset 2")+
   theme(plot.title = element_text(hjust=0.5))+
-  annotate("text", x=c(1.8, 2.8, 3.8, 4.8), y=c(-1400, -900, rep(-1400,2)),
+  annotate("text", x=c(1.8, 2.8, 3.8, 4.8), y=c(-800, -400, rep(-800,2)),
            label=var_icl_df2)
 # https://stackoverflow.com/questions/35618260/removing-legend-ggplot-2-2
 
@@ -493,7 +525,7 @@ p3_icl_new <-
   theme(panel.grid = element_blank())+
   ggtitle("Dataset 3")+
   theme(plot.title = element_text(hjust=0.5))+
-  annotate("text", x=c(1.7, 2.7, 3.7, 4.7), y=c(-200, -600, -200, 500),
+  annotate("text", x=c(1.7, 2.7, 3.7, 4.7), y=c(200, -400, 200, 600),
            label=var_icl_df3)
 
 
@@ -520,7 +552,7 @@ p4_icl_new <-
   theme(panel.grid = element_blank())+
   ggtitle("Dataset 4")+
   theme(plot.title = element_text(hjust=0.5))+
-  annotate("text", x=c(1.7, 2.7, 3.7, 4.7), y=c(10000, 6000, 4000, 4000),
+  annotate("text", x=c(1.7, 2.7, 3.7, 4.7), y=c(8000, 5000, 3000, 3000),
            label=var_icl_df4)
 
 
@@ -528,7 +560,7 @@ x11()
 grid.arrange(p1_icl_new, p2_icl_new, p3_icl_new, p4_icl_new, ncol=2,
              top = "Increase/Decrease in ICL when removing/leaving Variables in the GMM Model")
 
-savePlot("fig3_icl_com_outliers.PNG", type = "png",
+savePlot("fig3_icl_SEM_outliers.PNG", type = "png",
          device = dev.cur())
 
 
@@ -577,19 +609,25 @@ library(gridExtra)
 x11()
 grid.arrange(p1_p,p2_p,p3_p,p4_p, ncol=2)
 
-savePlot("fig4_prob_clusters_com_outliers.PNG", type = "png",
+savePlot("fig4_prob_clusters_SEM_outliers.PNG", type = "png",
          device = dev.cur())
 
 
 #------------- Figura com divisão dos tipos (somente datasets 1 e 2) e R>1, R<1
 
-p1_t <- ggplot(data1.df, aes(Core, B_Band))+
+data1.df_type <- read.table(data1.loc, header=TRUE)
+data2.df_type <- read.table(data2.loc, header=TRUE)
+
+data1.df_type <- merge(data1.df, data1.df_type)
+data2.df_type <- merge(data2.df, data2.df_type)
+
+p1_t <- ggplot(data1.df_type, aes(Core, B_Band))+
   geom_point(aes(colour = Type, shape=cluster), size = 1.8)+
   scale_shape_manual(values=c(3, 16))+
   ggtitle("Dataset 1 - Type vs Cluster")+
   theme(plot.title = element_text(hjust=0.5))
 
-p2_t <- ggplot(data2.df, aes(Radio, B_Band))+
+p2_t <- ggplot(data2.df_type, aes(Radio, B_Band))+
   geom_point(aes(colour = Type, shape=cluster), size = 1.8)+
   scale_shape_manual(values=c(3, 16))+
   ggtitle("Dataset 2 - Type vs Cluster")+
@@ -598,7 +636,7 @@ p2_t <- ggplot(data2.df, aes(Radio, B_Band))+
 grid.arrange(p1_t,p2_t,ncol=2)
 
 
-savePlot("fig5_gruposAGNS_com_outliers.PNG", type = "png",
+savePlot("fig5_gruposAGNS_SEM_outliers.PNG", type = "png",
          device = dev.cur())
 
 ###### fim da analise com outliers
