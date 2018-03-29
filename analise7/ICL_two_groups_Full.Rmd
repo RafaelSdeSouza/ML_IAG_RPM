@@ -1,0 +1,34 @@
+---
+title: "ICLs, GMM with G=2 (All Varibles/ Full)"
+output:
+  html_document:
+    df_print: paged
+---
+
+
+```{r, results='asis', echo=FALSE, message=FALSE, warning=FALSE}
+load('/home/allan/Documents/astro/MLG_IAG_USP/analise7/WKSPCE_analise7.1_com_outliers.RData')
+library(kableExtra)
+library(magrittr)
+```
+
+### Com outliers
+
+```{r, results='asis', echo=FALSE}
+knitr::kable(icl_df, fomat = "html", caption = "ICL, GMM w/ G=1")
+```
+
+### SEM outliers
+
+
+```{r, results='asis', echo=FALSE, message=FALSE, warning=FALSE}
+load('/home/allan/Documents/astro/MLG_IAG_USP/analise7/WKSPCE_analise7.1_SEM_outliers.RData')
+library(kableExtra)
+library(magrittr)
+```
+
+
+
+```{r, results='asis', echo=FALSE}
+knitr::kable(icl_df, fomat = "html", caption = "ICL, GMM w/ G=1")
+```
