@@ -114,6 +114,15 @@ tab_cluster_dt4 <- as.data.frame(table(data4.df$cluster))
 colnames(tab_cluster_dt4)[1] <- "Cluster"
 
 
+## R>1 e R < 1
+
+R_dt1<-as.data.frame(table(data1.df$R1))
+
+R_dt2<-as.data.frame(table(data2.df$R1))
+
+R_dt3<-as.data.frame(table(data3.df$R1))
+
+
 ## icl de cada resultado com todas as variaveis:
 
 icl_df <- data.frame(ICL = c(icl(out1), icl(out2), icl(out3), icl(out4)))

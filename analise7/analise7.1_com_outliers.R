@@ -80,6 +80,16 @@ colnames(tab_cluster_dt3)[1] <- "Cluster"
 tab_cluster_dt4 <- as.data.frame(table(data4.df$cluster))
 colnames(tab_cluster_dt4)[1] <- "Cluster"
 
+## R>1 e R < 1
+
+R_dt1<-as.data.frame(table(data1.df$R1))
+colnames(R_dt1)[1] <- "R"
+
+R_dt2<-as.data.frame(table(data2.df$R1))
+colnames(R_dt2)[1] <- "R"
+
+R_dt3<-as.data.frame(table(data3.df$R1))
+colnames(R_dt3)[1] <- "R"
 
 ## icl de cada resultado com todas as variaveis:
 
@@ -647,3 +657,4 @@ p2_t <- ggplot(data2.df, aes(Radio, B_Band))+
 #          device = dev.cur())
 
 ###### fim da analise com outliers
+

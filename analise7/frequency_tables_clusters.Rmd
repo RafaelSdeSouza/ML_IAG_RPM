@@ -1,0 +1,65 @@
+---
+title: "Tabelas de Frequência para os Clusters"
+output:
+  html_document:
+    df_print: paged
+---
+
+
+```{r, results='asis', echo=FALSE, message=FALSE, warning=FALSE}
+load('/home/allan/Documents/astro/MLG_IAG_USP/analise7/WKSPCE_analise7.1_com_outliers.RData')
+library(kableExtra)
+library(magrittr)
+```
+
+### Com outliers
+
+```{r, results='asis', echo=FALSE}
+knitr::kable(tab_cluster_dt1, fomat = "html", caption = "Dataset1", row.names = FALSE)
+```
+
+
+```{r, results='asis', echo=FALSE}
+knitr::kable(tab_cluster_dt2, fomat = "html", caption = "Dataset2", row.names = FALSE)
+```
+
+
+```{r, results='asis', echo=FALSE}
+knitr::kable(tab_cluster_dt3, fomat = "html", caption = "Dataset3", row.names = FALSE)
+```
+
+
+```{r, results='asis', echo=FALSE}
+knitr::kable(tab_cluster_dt4, fomat = "html", caption = "Dataset4", row.names = FALSE)
+```
+
+
+### SEM outliers
+
+
+```{r, results='asis', echo=FALSE, message=FALSE, warning=FALSE}
+load('/home/allan/Documents/astro/MLG_IAG_USP/analise7/WKSPCE_analise7.1_SEM_outliers.RData')
+library(kableExtra)
+library(magrittr)
+```
+
+
+
+```{r, results='asis', echo=FALSE}
+knitr::kable(tab_cluster_dt1, fomat = "html", caption = "Dataset1", row.names = FALSE)
+```
+
+
+```{r, results='asis', echo=FALSE}
+knitr::kable(tab_cluster_dt2, fomat = "html", caption = "Dataset2", row.names = FALSE)
+```
+
+
+```{r, results='asis', echo=FALSE}
+knitr::kable(tab_cluster_dt3, fomat = "html", caption = "Dataset3", row.names = FALSE)
+```
+
+
+```{r, results='asis', echo=FALSE}
+knitr::kable(tab_cluster_dt4, fomat = "html", caption = "Dataset4", row.names = FALSE)
+```
